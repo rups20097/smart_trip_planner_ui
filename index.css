@@ -1,0 +1,283 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Graphik,avenir next,avenir,Helvetica,sans-serif;
+    background-color: white;
+  }
+  
+  input[type="file"]{
+    display: none;
+  }
+  
+  .floating-btn {
+    width: 50px;
+    height: 50px;
+    background: #f5af09;
+    text-decoration: none;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 40px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    transition: background-color 0.25s ease-out, box-shadow 0.25s ease-out;
+    border: none;
+    cursor: pointer;
+    outline: none;
+  }
+  .floating-btn:hover {
+    box-shadow: 0 4px 5px -2px rgba(0,0,0,.2), 0 7px 10px 1px rgba(0,0,0,.14), 0 2px 16px 1px rgba(0,0,0,.12);
+  }
+  
+  
+  .floating-btn.clicked {
+    background-color: #4169cc;
+  }
+  
+  .floating-btn i {
+    transition: transform 0.25s cubic-bezier(.4, 0, .2, 1);
+  }
+  
+  .floating-btn.clicked i {
+    transform: rotate(315deg);
+  }
+  
+  #labelFile{
+    color: white;
+    height: 30px;
+    width: 125px;
+    background-color: #f5af09;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-weight: bold;
+    border-radius: 5px;
+  }
+  
+  #legal{
+    margin: 16px auto;
+    text-align: center;
+    color: #ccc;
+    font-size: 10px;
+    max-width: 25em;
+    line-height: 1.0;
+    letter-spacing: .2px;
+  }
+  
+  #inputFile{
+    border: 0 !important;
+    margin-bottom: 10px;
+  }
+  
+  .icon{
+    margin-right: 8px;
+    opacity: 0.5;
+    font-size: 21px;
+  }
+  
+  #iconPhoto{
+    margin-right: 8px;
+    opacity: 0.7;
+    font-size: 18px;
+  }
+  
+  .form-box {
+    margin: 16px auto;
+    font-size: 16px;
+    border-radius: 9px;
+    position: fixed;
+    opacity: 0;
+    overflow: hidden;
+    bottom: 0;
+    right: 20px;
+    transform: translate(-50%,-50%);
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-sizing: border-box;
+    background-color: #f5f5f7;
+    transition: all .25s ease-in-out;
+  }
+  
+  .form-box.open {
+    transform: translate(10px, -70px);
+    height: 490px;
+    width: 366px;
+    opacity: 1;
+  }
+  
+  .test{
+    background-color: #fff;
+    height: 380px;
+  }
+  
+  .login-header {
+    border-top-left-radius: 9px;
+    border-top-right-radius: 9px;
+    background: #4169cc;
+    /* padding: 23px; */
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    color: #fff;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 20px;
+  }
+  
+  .form-box input{
+    padding: 10px 0;
+    margin-bottom: 30px;
+  
+  }
+  .form-box textarea{
+    height: 80px;
+    padding: 10px 0;
+    margin-bottom: 20px;
+  }
+  
+  .form-box input,.form-box textarea{
+    width: 100%;
+    box-shadow: none;
+    outline: none;
+    box-sizing: border-box;
+    border: none;
+    cursor: text;
+    border-bottom: 1px solid #dcdcdc;
+    transition: .3s width ease-in-out;
+    margin: none;
+    
+  }
+  
+  .form-box input[type="submit"]{
+    border-bottom: none;
+    cursor: pointer;
+    background: #4169cc;
+    color: #fff;
+    margin-bottom: 0;
+  }
+  .form-box form div{
+    position: relative;
+  }
+  
+  #submitButt{
+    width: 30%;
+    margin-left: 121px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    font-weight: bold;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    opacity: 10;
+  }
+  
+  .active{
+    opacity: 0.7 !important;
+  }
+  
+  .form-box form div .inputLabel{
+    position: absolute;
+    left: -1px;
+    top: 8px;
+    pointer-events: none;
+    color: #999;
+    transition: .2s ease-in-out;
+    font-size: 14px;
+  }
+  
+  .form-box input:focus ~ .inputLabel,
+  .form-box textarea:focus ~ .inputLabel,
+  .form-box input:valid ~ .inputLabel,
+  .form-box textarea:valid ~ .inputLabel{
+    top: -12px;
+    left: 0;
+    color: #4169cc;
+    font-size: 10px;
+    font-weight: bold;
+    transition: .2s ease-in-out;
+  }
+  
+  .form-box input:focus,
+  .form-box textarea:focus,
+  .form-box textarea:valid,
+  .form-box input:valid{
+    width: 100%;
+    border-bottom: 2px solid rgb(76, 118, 224);
+  }
+  
+  .footer{
+    margin-bottom: 0;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    background: #e5e5e5;
+    margin-bottom: 0px;
+    border-radius: 0 0 6px 6px;
+  }
+
+  /* ===================== */
+  #chatroom_box {
+      list-style: none;
+      padding: 15px;
+      margin: 0;
+      overflow-x: scroll;
+      max-height: 345px;
+  }
+  #chatroom_box > ul {
+      width: fit-content;
+  }
+
+  #chatroom_box > li.user_text {
+    background-color: #d3dffd;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    border-radius: 20px;
+    border-top-left-radius: 0;
+    font-size: 12px;
+  }
+
+  #chatroom_box > li.bot_text {
+    background-color: #e8cff9;
+    padding: 8px 10px;
+    margin-bottom: 5px;
+    margin-left: 30px;
+    border-radius: 20px;
+    border-bottom-right-radius: 0;
+    font-size: 12px;
+  }
+
+  .footer > input {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    font-size: 14px;
+    height: 100%;
+    padding: 5px 10px;
+    border: 0 !important;
+    width: 290px;
+  }
+
+  #send_button {
+    width: 20px;
+    padding: 15px;
+    cursor: pointer;
+  }

@@ -1,0 +1,42 @@
+<html lang="en">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="index.css">
+        <title>SMART TRIP PLANNER</title>
+        <script type="text/javascript" defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script type="text/javascript" defer src="index.js"></script>
+    </head>
+    
+    <body>
+        <div class="form-box " id="myDIV">
+            <h2 class="login-header"><i class="far fa-comment-dots icon"></i>Plan for a Trip.</h2>
+        <div class="test">
+            <ul id="chatroom_box">
+                <li class="user_text">Please create an itinerary for me.</li>
+                <li class="bot_text">Sure, for that I need to know your budget.</li>
+                <li class="user_text">I have 300 dollar in my bucket.</li>
+                <li class="bot_text">Thanks, give me some time while I create an itinerary for you!</li>
+                <li class="user_text">Please create an itinerary for me.</li>
+                <li class="bot_text">Sure, for that I need to know your budget.</li>
+                <li class="user_text">I have 300 dollar in my bucket.</li>
+                <li class="bot_text">Thanks, give me some time while I create an itinerary for you!</li>
+                <li class="user_text">Please create an itinerary for me.</li>
+                <li class="bot_text">Sure, for that I need to know your budget.</li>
+                <li class="user_text">I have 300 dollar in my bucket.</li>
+                <li class="bot_text">Thanks, give me some time while I create an itinerary for you!</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <input type="text" placeholder="Type your query here..." id="text_typed">
+            <img src="./assets/send-message.png" id="send_button" onclick="send_text()">
+        </div>
+    </div>
+    <button class="floating-btn" onclick="myFunction()">
+        +
+    </button>
+</body>
+
+</html>
