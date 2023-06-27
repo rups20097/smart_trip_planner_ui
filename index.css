@@ -1,7 +1,7 @@
 body {
     padding: 0;
     margin: 0;
-    font-family: Graphik,avenir next,avenir,Helvetica,sans-serif;
+    font-family: 'Open Sans', sans-serif;
     background-color: white;
   }
   
@@ -280,4 +280,20 @@ body {
     width: 20px;
     padding: 15px;
     cursor: pointer;
+  }
+
+  .hotel_available {
+    background-color: #d39ef3;
+    padding: 10px 5px;
+    border-radius: 5px;
+    margin: 5px 0;
+  }
+
+  .hotel_name {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  .days_card {
+    padding: 10px;
   }
