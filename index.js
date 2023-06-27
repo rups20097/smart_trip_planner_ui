@@ -94,13 +94,11 @@ function checkIfItineraryPossible(amount) {
       },
       dataType: "json",
       success: function (resp, status, jqXHR) {
-        setTimeout(() => {
-          if (resp.itinerary.length > 0) {
-            $("#chatroom_box").append(`
-              ${createItineraryView(resp.itinerary)}
-            `);
-          }
-        }, 1000);
+        if (resp.itinerary.length > 0) {
+          $("#chatroom_box").append(`
+            ${createItineraryView(resp.itinerary)}
+          `);
+        }
       },
 
       error: function (jqXHR, status) {
