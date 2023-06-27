@@ -94,13 +94,10 @@ function checkIfItineraryPossible(amount) {
       },
       dataType: "json",
       success: function (resp, status, jqXHR) {
-        console.log(resp.itinerary, '\n', resp.itinerary.lenght)
         setTimeout(() => {
-          if (resp.itinerary.lenght > 0) {
+          if (resp.itinerary.length > 0) {
             $("#chatroom_box").append(`
-                <li class="bot_text">
-                  ${createItineraryView(resp.itinerary)}
-                </li>
+              ${createItineraryView(resp.itinerary)}
             `);
           }
         }, 1000);
