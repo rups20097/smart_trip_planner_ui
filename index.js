@@ -96,7 +96,9 @@ function checkIfItineraryPossible(amount) {
       success: function (resp, status, jqXHR) {
         if (resp.itinerary.length > 0) {
           $("#chatroom_box").append(`
+          <li class="bot_text">
             ${createItineraryView(resp.itinerary)}
+          </li>
           `);
         }
       },
@@ -114,14 +116,12 @@ function createItineraryView(arr) {
   let finalHTML = '';
   arr.forEach(element => {
     finalHTML += `
-      <li class="bot_text">
-          <div class="days_card">
-              <h2 style="margin: 0 0 5px; border-bottom: 1px solid #bbbbbb;">DAY: ${element.day}</h2>
-              <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px">${element.plan.heading}</div>
-              <div style="margin-bottom: 10px">${element.plan.details}</div>
-              ${element.hotels ? createHotelsHtml(element.hotels) : ''}
-          </div>
-      </li>
+      <div class="days_card">
+          <h2 style="margin: 0 0 5px; border-bottom: 1px solid #bbbbbb;">DAY: ${element.day}</h2>
+          <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px">${element.plan.heading}</div>
+          <div style="margin-bottom: 10px">${element.plan.details}</div>
+          ${element.hotels ? createHotelsHtml(element.hotels) : ''}
+      </div>
     `;
   });
   console.log('finalHTML: ', finalHTML)
@@ -135,7 +135,7 @@ function createHotelsHtml(arr) {
     arr.forEach(element => {
       hotelsHtml += `
         <div class="hotel_available">
-            <div class="hotel_name">${element.name}</div>
+            <div class="hotel_name"><img src="./assets/hotel.png" style="height: 20px; margin-right: 10px;">${element.name}</div>
             <a target=”_blank” href="${element.url}" class="hotel_url" >Check the hotel</a>
         </div>    
       `;
