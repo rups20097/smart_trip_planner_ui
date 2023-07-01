@@ -238,7 +238,7 @@ body {
       list-style: none;
       padding: 15px;
       margin: 0;
-      overflow-x: scroll;
+      overflow-y: scroll;
       max-height: 345px;
   }
   #chatroom_box > ul {
@@ -298,4 +298,15 @@ body {
 
   .days_card {
     padding: 10px;
+  }
+
+  .booking_btn {
+    margin-left: 10px;
+    border: 0;
+    cursor: pointer;
+    border-radius: 3px;
+    padding: 5px 10px;
+    font-size: 12px;
+    background: #b12cc9;
+    color: white;
   }
