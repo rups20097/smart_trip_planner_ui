@@ -34,11 +34,14 @@ function send_text(defaultQry="") {
             <li class="user_text">${query}</li>
         `);
     $("#text_typed").val("");
-
+    document.getElementById('chatroom_box').scrollBy(0,document.getElementById('chatroom_box').scrollHeight);
     let data = {
       queryText: query,
       sessionId: sessionStorage.getItem("sessionId"),
     };
+
+    showChatLoader();
+    document.getElementById('chatroom_box').scrollBy(0,document.getElementById('chatroom_box').scrollHeight);
 
     $.ajax({
       type: "POST",
@@ -52,17 +55,10 @@ function send_text(defaultQry="") {
       },
       dataType: "json",
       success: function (data, status, jqXHR) {
+        showChatLoader(false)
         $("#chatroom_box").append(`
                     <li class="bot_text">${data.text}</li>
                 `);
-        // if (
-        //   data.queryResult.action == "PLAN_INTENT.PLAN_INTENT-custom" && !data.queryResult.intent.isFallback
-        // ) {
-        //   checkIfItineraryPossible(
-        //     data.queryResult.parameters.fields.budgets.structValue.fields.amount
-        //       .numberValue
-        //   );
-        // }
         if (data.queryResult.intent.displayName == "PLAN_INTENT" && data.queryResult.parameters.fields["geo-state-us"].stringValue !== "") {
           itinerary_request_details["place"] = data.queryResult.parameters.fields["geo-state-us"].stringValue;
         }
@@ -112,6 +108,7 @@ function send_text(defaultQry="") {
                 `);
         }
         console.log('itinerary_request_details', itinerary_request_details)
+        document.getElementById('chatroom_box').scrollBy(0,document.getElementById('chatroom_box').scrollHeight);
       },
 
       error: function (jqXHR, status) {
@@ -199,18 +196,19 @@ function createHotelsHtml(arr) {
   
 }
 
-// let firstTime = true;
-// let container = $("#chatroom_box");
-// function scroll_bottom() {
-//   if (firstTime) {
-//     container.scrollTop = container.scrollHeight;
-//     firstTime = false;
-//   } else if (container.scrollTop + container.clientHeight === container.scrollHeight) {
-//     container.scrollTop = container.scrollHeight;
-//   }
-// }
+let firstTime = true;
+let elem = document.getElementById("chatroom_box");
+function scroll_bottom() {
+  if (firstTime) {
+    elem.scrollTop = elem.scrollHeight;
+    firstTime = false;
+  } else if (elem.scrollTop + elem.clientHeight === elem.scrollHeight) {
+    elem.scrollTop = elem.scrollHeight;
+  }
+}
 
 function askChatGptForItinerary(obj) {
+  showChatLoader();
   let prompt = `Create an itinerary for ${obj.place} within the budget of ${obj.budget}`
   $.ajax({
     type: "POST",
@@ -224,15 +222,22 @@ function askChatGptForItinerary(obj) {
     },
     dataType: "json",
     success: function (resp, status, jqXHR) {
-      if (resp.response) {
+      showChatLoader(false)
+      if (resp.response !== null) {
         $("#chatroom_box").append(`
           <li class="bot_text">
             ${generateHTMLFromResp(resp.response)}
           </li>
         `)
       } else {
-        alert(resp.error)
+        // alert(resp.error);
+        $("#chatroom_box").append(`
+          <li class="bot_text">
+           Apologies. Please check your command or try again later.
+          </li>
+        `)
       }
+      document.getElementById('chatroom_box').scrollBy(0,document.getElementById('chatroom_box').scrollHeight);
     },
 
     error: function (jqXHR, status) {
@@ -244,6 +249,7 @@ function askChatGptForItinerary(obj) {
 }
 
 function generateHTMLFromResp(chatGptReply) {
+  let decidedValueOfI = 1;
   console.log('generateHTMLFromResp >>>>>>>>>')
   let len = chatGptReply.split('\n\n').length;
   if (len < 2) {
@@ -252,17 +258,19 @@ function generateHTMLFromResp(chatGptReply) {
   } else {
     console.log('generateHTMLFromResp ELSE>>>>>>>>>')
     let finalHTML = '';
-    
-    for (let i = 0; i < len - 1; i++) {
+    if (chatGptReply.startsWith('Day')) {
+      decidedValueOfI = 0
+    }
+    for (let i = decidedValueOfI; i < len - 1; i++) {
       console.log('LOOP --', i);
       let heading = chatGptReply.split('\n\n')[i].split('\n')[0];
       let headingArr = heading.split(': ');
-      let desc = chatGptReply.split('\n\n')[i].split(heading).join('').replace(/\n/, '');
+      let desc = chatGptReply.split('\n\n')[i].split(heading).join('').replace(/\n/, '').replace(/-/g, '<br />-').replace(/<br \/>/, '');
       finalHTML += `
         <div class="days_card">
             <h2 style="margin: 0 0 5px; border-bottom: 1px solid #bbbbbb;">${headingArr[0]}</h2>
             <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px">${headingArr[1]}</div>
-            <div style="margin-bottom: 10px">${desc}</div>
+            <div style="margin-bottom: 10px">${desc}<br /></div>
             ${checkHotels(headingArr[1])}
         </div>
       `;
@@ -279,7 +287,7 @@ function checkHotels(place) {
       <div class="hotel_available">
           <div class="hotel_name"><img src="./assets/hotel.png" style="height: 20px; margin-right: 10px;">Wyndham Boston Beacon Hill</div>
           <a class="booking_btn" style="text-decoration: none" target=”_blank” href="https://www.wyndhambeaconhill.com" class="hotel_url" >Check the hotel</a>
-          <button class="booking_btn">Book Now</button>
+          <button style="padding: 7px 15px;" class="booking_btn">Book Now</button>
       </div>    
     `;
     return hotelsHtml;
@@ -289,7 +297,7 @@ function checkHotels(place) {
       <div class="hotel_available">
           <div class="hotel_name"><img src="./assets/hotel.png" style="height: 20px; margin-right: 10px;">Travelodge by Wyndham Cape Cod Area</div>
           <a class="booking_btn" style="text-decoration: none" target=”_blank” href="https://www.wyndhamhotels.com/travelodge/west-dennis-massachusetts/travelodge-cape-cod-area/overview" class="hotel_url" >Check the hotel</a>
-          <button class="booking_btn" onclick="send_text('create a booking for cape cod by wyndham')">Book Now</button>
+          <button style="padding: 7px 15px;" class="booking_btn" onclick="send_text('create a booking for cape cod by wyndham')">Book Now</button>
       </div>    
     `;
     return hotelsHtml;
@@ -299,11 +307,28 @@ function checkHotels(place) {
       <div class="hotel_available">
           <div class="hotel_name"><img src="./assets/hotel.png" style="height: 20px; margin-right: 10px;">Origin Lexington, a Wyndham Hotel</div>
           <a class="booking_btn" style="text-decoration: none" target=”_blank” href="https://www.wyndhamhotels.com/wyndham/lexington-kentucky/origin-lexington/overview" class="hotel_url" >Check the hotel</a>
-          <button class="booking_btn">Book Now</button>
+          <button style="padding: 7px 15px;" class="booking_btn">Book Now</button>
       </div>    
     `;
     return hotelsHtml;
   } else {
     return ''
+  }
+}
+
+function showChatLoader(bool=true) {
+  if (bool) {
+    $("#chatroom_box").append(`
+      <div id="loading-bubble">
+          <div class="spinner" style="">
+              Please wait &nbsp;
+              <div class="bounce1"></div>
+              <div class="bounce2"></div>
+              <div class="bounce3"></div>
+          </div>
+      </div>
+    `);
+  } else {
+    $('#chatroom_box #loading-bubble').last().remove();
   }
 }

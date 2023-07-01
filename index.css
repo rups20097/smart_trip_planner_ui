@@ -239,13 +239,14 @@ body {
       padding: 15px;
       margin: 0;
       overflow-y: scroll;
+      scroll-behavior: smooth;
       max-height: 345px;
   }
   #chatroom_box > ul {
       width: fit-content;
   }
 
-  #chatroom_box > li.user_text {
+  #chatroom_box > li.bot_text {
     background-color: #d3dffd;
     padding: 8px 10px;
     margin-bottom: 5px;
@@ -254,7 +255,7 @@ body {
     font-size: 12px;
   }
 
-  #chatroom_box > li.bot_text {
+  #chatroom_box > li.user_text {
     background-color: #e8cff9;
     padding: 8px 10px;
     margin-bottom: 5px;
@@ -283,15 +284,16 @@ body {
   }
 
   .hotel_available {
-    background-color: #d39ef3;
-    padding: 10px 5px;
+    background-color: #92b3fa;
+    padding: 10px;
     border-radius: 5px;
     margin: 5px 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
   .hotel_name {
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
   }
@@ -301,12 +303,12 @@ body {
   }
 
   .booking_btn {
-    margin-left: 10px;
+    margin-left: 22px;
     border: 0;
     cursor: pointer;
     border-radius: 3px;
     padding: 5px 10px;
     font-size: 12px;
-    background: #b12cc9;
+    background: #4180f8;
     color: white;
   }
