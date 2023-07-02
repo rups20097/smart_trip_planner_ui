@@ -114,6 +114,7 @@ function send_text(defaultQry="") {
       error: function (jqXHR, status) {
         // error handler
         console.log(jqXHR);
+        showChatLoader(false);
         // alert("fail" + status.code);
         $("#chatroom_box").append(`
           <li class="bot_text">
@@ -235,6 +236,7 @@ function askChatGptForItinerary(obj) {
           </li>
         `)
       } else {
+        showChatLoader(false);
         // alert(resp.error);
         $("#chatroom_box").append(`
           <li class="bot_text">
