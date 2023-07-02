@@ -114,7 +114,12 @@ function send_text(defaultQry="") {
       error: function (jqXHR, status) {
         // error handler
         console.log(jqXHR);
-        alert("fail" + status.code);
+        // alert("fail" + status.code);
+        $("#chatroom_box").append(`
+          <li class="bot_text">
+           Apologies. Please check your command or try again later.
+          </li>
+        `)
       },
     });
   }
@@ -243,7 +248,11 @@ function askChatGptForItinerary(obj) {
     error: function (jqXHR, status) {
       // error handler
       console.log(jqXHR);
-      alert("fail" + status.code);
+      $("#chatroom_box").append(`
+          <li class="bot_text">
+           Apologies. Please check your command or try again later.
+          </li>
+        `)
     },
   });
 }
