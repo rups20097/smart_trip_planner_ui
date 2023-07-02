@@ -248,6 +248,7 @@ function askChatGptForItinerary(obj) {
     },
 
     error: function (jqXHR, status) {
+      showChatLoader(false);
       // error handler
       console.log(jqXHR);
       $("#chatroom_box").append(`
@@ -279,10 +280,10 @@ function generateHTMLFromResp(chatGptReply) {
       let desc = chatGptReply.split('\n\n')[i].split(heading).join('').replace(/\n/, '').replace(/-/g, '<br />-').replace(/<br \/>/, '');
       finalHTML += `
         <div class="days_card">
-            <h2 style="margin: 0 0 5px; border-bottom: 1px solid #bbbbbb;">${headingArr[0]}</h2>
-            <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px">${headingArr[1]}</div>
-            <div style="margin-bottom: 10px">${desc}<br /></div>
-            ${checkHotels(headingArr[1])}
+            <h2 style="margin: 0 0 5px; border-bottom: 1px solid #bbbbbb;">${headingArr[0] ? headingArr[0] : ''}</h2>
+            <div style="font-size: 14px; font-weight: bold; margin-bottom: 5px">${headingArr[1] ? headingArr[1] : ''}</div>
+            <div style="margin-bottom: 10px">${desc ? desc : ''}<br /></div>
+            ${checkHotels(headingArr[1] ? headingArr[1] : desc.split('<br />')[0])}
         </div>
       `;
     }

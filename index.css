@@ -312,3 +312,9 @@ body {
     background: #4180f8;
     color: white;
   }
+
+  .mic_icon {
+    padding: 10px;
+    width: 23px;
+    cursor: pointer;
+  }
